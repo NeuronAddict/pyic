@@ -3,7 +3,7 @@ class HasText:
         self.text = text
 
     def __call__(self, body):
-        return text in body
+        return self.text in body
 
 
 class Not:
@@ -11,4 +11,4 @@ class Not:
         self.condition = condition
 
     def __call__(self, body):
-        return not condition(body)
+        return not self.condition(body)
