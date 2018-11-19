@@ -4,8 +4,8 @@ from abc import ABC, abstractmethod
 
 class Tester:
    
-    def __init__(self, body_condition):
-        self.body_condition = body_condition
+    def __init__(self, response_condition):
+        self.response_condition = response_condition
 
     @abstractmethod
     def get_request(payload):
@@ -14,6 +14,6 @@ class Tester:
 
     def test(self, payload):
         r = self.get_request(payload)
-        return self.body_condition(r.text)
+        return self.response_condition(r)
         
 
