@@ -53,5 +53,7 @@ class StringFinder:
 		    return str
 	    else:
 		    print("[-] string {} do not exist or is null".format(sql))
-
+    
+    def read_file(self, filename):
+	    return self.read_string("LOAD_FILE({})".format(encode_str(filename)))
 
