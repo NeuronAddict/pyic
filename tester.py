@@ -8,7 +8,7 @@ class Tester:
         self.log = log
 
     @abstractmethod
-    def get_request(payload):
+    def get_request(self, payload):
         pass
 
     def test(self, payload):
