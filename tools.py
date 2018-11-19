@@ -1,6 +1,6 @@
-def encode_str(str):
-	return '0x' + str.encode('ascii').hex()
+def encode_str(sql_str):
+    return '0x' + sql_str.encode('ascii').hex()
 
-def es(str):
-	return encode_str(str)
 
+def es(sql_str):
+    return encode_str(sql_str)

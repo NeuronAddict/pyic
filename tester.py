@@ -1,17 +1,15 @@
-import requests
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 
 class Tester:
-   
-    def __init__(self, response_condition, log = False):
+
+    def __init__(self, response_condition, log=False):
         self.response_condition = response_condition
         self.log = log
 
     @abstractmethod
     def get_request(payload):
         pass
-    
 
     def test(self, payload):
         r = self.get_request(payload)
@@ -19,5 +17,3 @@ class Tester:
             print("[*] request {}".format(r.url))
             print("[*] response: {}".format(r.text))
         return self.response_condition(r)
-        
-
