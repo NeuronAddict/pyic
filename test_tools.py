@@ -15,6 +15,7 @@ class TestEncode_str(TestCase):
 
     def test_encode_char(self):
         self.assertEqual('CHAR(77,121,83,81,76)', SqliEncoder.str_to_char('MySQL'))
+        self.assertEqual('CHAR(47,116,109,112,47,102,108,97,103,46,116,120,116)', SqliEncoder.str_to_char('/tmp/flag.txt'))
     
 
 if __name__ == '__main__':
