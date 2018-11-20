@@ -57,3 +57,4 @@ class StringFinder:
 
     def read_file(self, filename):
         return self.read_string("LOAD_FILE({})".format(encode_str(filename)))
+
