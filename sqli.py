@@ -1,13 +1,9 @@
 #! /usr/bin/python3
 
 import requests
-import sys
 
-from tools import *
-from payloads import *
-from body_conditions import *
-from tester import Tester
-from string_finder import StringFinder
+from pysqli.tester import Tester
+from pysqli.string_finder import StringFinder
 
 
 def test(payload):

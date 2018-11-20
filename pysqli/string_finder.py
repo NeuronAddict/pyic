@@ -1,5 +1,5 @@
-from tools import *
-from tester import Tester
+from pysqli.tools import *
+from pysqli.tester import Tester
 
 
 class StringFinder:

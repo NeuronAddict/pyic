@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from body_conditions import HasText, Not
+from pysqli.body_conditions import HasText, Not
 
 
 class TestBodyConditions(TestCase):

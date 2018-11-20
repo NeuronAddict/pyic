@@ -1,5 +1,4 @@
-from string_finder import StringFinder
-from tools import SqliEncoder
+from pysqli.tools import SqliEncoder
 
 class DbDumper:
     

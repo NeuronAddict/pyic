@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from tester import Tester
+from pysqli.tester import Tester
 
 
 class MockRequest:
