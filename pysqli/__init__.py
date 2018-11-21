@@ -1,7 +1,7 @@
 from pysqli.blindtester import BlindTester
 from pysqli.tools import SqliEncoder
 from pysqli.body_conditions import *
-from pysqli.string_finder import StringFinder
+from pysqli.blind_string_finder import BlindStringFinder
 from pysqli.db_dumper import DbDumper
 from pysqli.manual_loop import *
 
