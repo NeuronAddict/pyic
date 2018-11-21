@@ -1,4 +1,5 @@
-from termcolor import colored, cprint
+from termcolor import colored
+
 
 class ManualLoop:
     def __init__(self, request_builder):
