@@ -12,12 +12,12 @@ class ManualLoop:
                 print('')
                 break
             r = self.request_builder(payload)
-            print('[*] (request) > {}'.format(r.request.url))
-            print('    (headers) > {}'.format(r.request.headers))
-            print('    (body) > {}'.format(r.request.body))
-            print('[*] (response) < {}'.format(colored(r.status_code, 'blue')))
-            print('    (headers) < {}'.format(colored(r.headers, 'blue')))
-            print('    (text body) < {}'.format(colored(r.text, 'blue')))
+            print(colored('[*] (request) {}'.format(r.request.url), 'blue'))
+            print(colored('    (headers) {}'.format(r.request.headers), 'blue'))
+            print(colored('    (body) {}'.format(r.request.body), 'blue'))
+            print('[*] (response) {}'.format(r.status_code))
+            print('    (headers) {}'.format(r.headers))
+            print('    (text body)\n {}'.format(r.text))
 
 
 def loop(rb):
