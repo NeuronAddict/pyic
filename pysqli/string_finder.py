@@ -1,3 +1,5 @@
+import sys
+
 from pysqli.tools import *
 from pysqli.tester import Tester
 
@@ -49,8 +51,14 @@ class StringFinder:
         if self.tester.test("AND LENGTH({})>0".format(sql)):
             l = self.str_length(sql)
             for i in range(1, l + 1):
-                str += chr(self.search_char(sql, i, 10, 127))
-                print("[+] find char, str == {}".format(str))
+                finded = chr(self.search_char(sql, i, 10, 127))
+                str += finded
+                if self.tester.log:
+                    print("[+] find char, str == {}".format(str))
+                else:
+                    sys.stdout.write(finded)
+                    sys.stdout.flush()
+            print()
             return str
         else:
             print("[-] string {} do not exist or is null".format(sql))
