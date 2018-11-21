@@ -2,8 +2,8 @@ class HasText:
     def __init__(self, text):
         self.text = text
 
-    def __call__(self, body):
-        return self.text in body
+    def __call__(self, response):
+        return self.text in response.text
 
 
 class Not:
