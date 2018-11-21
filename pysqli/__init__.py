@@ -1,4 +1,4 @@
-from pysqli.tester import Tester
+from pysqli.blindtester import BlindTester
 from pysqli.tools import SqliEncoder
 from pysqli.body_conditions import *
 from pysqli.string_finder import StringFinder

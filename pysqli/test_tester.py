@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from pysqli.tester import Tester
+from pysqli.blindtester import BlindTester
 
 
 class MockRequest:
@@ -10,10 +10,10 @@ class MockRequest:
         self.url = 'http://example.com'
 
 
-class MockTester(Tester):
+class MockBlindTester(BlindTester):
 
     def __init__(self, text):
-        super(MockTester, self).__init__(lambda a: a.text == text, True)
+        super(MockBlindTester, self).__init__(lambda a: a.text == text, True)
 
     def get_request(self, payload):
         return MockRequest('payload')
@@ -22,5 +22,5 @@ class MockTester(Tester):
 class TestTester(TestCase):
 
     def test_Tester(self):
-        tester = MockTester('payload')
+        tester = MockBlindTester('payload')
         self.assertEqual(True, tester.test('payload'))

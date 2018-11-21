@@ -1,7 +1,6 @@
-class Tester:
+class BlindTester:
     """
     A Tester can test if a sqli injected query return true or false (its a blind tester).
-    TODO : rename to BlindTester
     """
     def __init__(self, request_builder, response_condition, log=False):
         """

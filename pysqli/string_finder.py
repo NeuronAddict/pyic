@@ -1,12 +1,12 @@
 import sys
 
 from pysqli.tools import *
-from pysqli.tester import Tester
+from pysqli.blindtester import BlindTester
 
 
 class StringFinder:
 
-    def __init__(self, tester: Tester):
+    def __init__(self, tester: BlindTester):
         self.tester = tester
 
     def search_length(self, sql, a, b):
