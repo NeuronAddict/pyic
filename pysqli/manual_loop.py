@@ -5,7 +5,7 @@ class ManualLoop:
     def __init__(self, request_builder):
         self.request_builder = request_builder
 
-    def start(self):
+    def start(self, extractor=None):
         print('\n[*] You are entering on payload mode, enter a payload to quick send it via your request builder.\n')
         while True:
             payload = input(colored('payload : >>> ', 'red'))
@@ -19,7 +19,9 @@ class ManualLoop:
             print('[*] (response) {}'.format(r.status_code))
             print('    (headers) {}'.format(r.headers))
             print('    (text body)\n {}'.format(r.text))
+            if extractor is not None:
+                print(colored('[+] find value : {}'.format(extractor(r)), 'green'))
 
 
-def loop(rb):
-    ManualLoop(rb).start()
+def loop(rb, extractor=None):
+    ManualLoop(rb).start(extractor)
