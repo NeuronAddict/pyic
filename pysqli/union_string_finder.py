@@ -37,4 +37,4 @@ class UnionStringFinder(StringFinder):
         return self.response_extractor(r)
 
     def read_file(self, filename):
-        return self.response_extractor(self.request_builder('LOAD_FILE({})'.format(SqliEncoder.str_to_hexa(filename))))
+        return self.read_string('LOAD_FILE({})'.format(SqliEncoder.str_to_hexa(filename)))
