@@ -2,6 +2,8 @@ from pysqli.blindtester import BlindTester
 from pysqli.tools import SqliEncoder
 from pysqli.body_conditions import *
 from pysqli.blind_string_finder import BlindStringFinder
+from pysqli.union_string_finder import UnionStringFinder
+from pysqli.star_extract import StarExtract
 from pysqli.db_dumper import DbDumper
 from pysqli.manual_loop import *
 
