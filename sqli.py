@@ -2,7 +2,7 @@
 
 import requests
 
-from pysqli.blindtester import BlindTester
+from pysqli.blind_tester import BlindTester
 from pysqli.blind_string_finder import BlindStringFinder
 from pysqli.star_extract import StarExtract
 from pysqli.union_string_finder import UnionStringFinder

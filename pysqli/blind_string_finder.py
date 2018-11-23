@@ -1,6 +1,6 @@
 from multiprocessing.pool import ThreadPool
 
-from pysqli.blindtester import BlindTester
+from pysqli.blind_tester import BlindTester
 from pysqli.string_finder import StringFinder
 from pysqli.tools import *
 
