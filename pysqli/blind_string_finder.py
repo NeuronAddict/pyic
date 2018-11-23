@@ -1,9 +1,8 @@
-import sys
-from multiprocessing.pool import Pool, ThreadPool
+from multiprocessing.pool import ThreadPool
 
+from pysqli.blindtester import BlindTester
 from pysqli.string_finder import StringFinder
 from pysqli.tools import *
-from pysqli.blindtester import BlindTester
 
 
 class BlindStringFinder(StringFinder):
@@ -49,7 +48,6 @@ class BlindStringFinder(StringFinder):
             return self.search_char(sql, i, pivot, b)
 
     def read_string(self, sql):
-        finded_str = ''
         if self.tester.test("AND LENGTH({})>0".format(sql)):
             length = self.str_length(sql)
             with ThreadPool(40) as pool:
