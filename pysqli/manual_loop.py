@@ -24,4 +24,10 @@ class ManualLoop:
 
 
 def loop(rb, extractor=None):
+    """
+    Enter into payload mode. This mode prompt a payload and send it via a request builder.
+
+    :param rb: request builder. A request builder is a callable (class, function, lambda) that get a payload and return a response.
+    :param extractor: Callable that take a response and extract the value read. type help(StartExtract) to get help.
+    """
     ManualLoop(rb).start(extractor)
