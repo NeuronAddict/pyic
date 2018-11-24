@@ -1,3 +1,4 @@
+from pysqli.payloads import MysqlPayloads
 from pysqli.blind_string_finder import StringFinder
 from pysqli.tools import SqliEncoder
 
@@ -11,7 +12,8 @@ class DbDumper:
     The String finder is use to get the content of the tables
 
     """
-    def __init__(self, string_finder: StringFinder):
+    def __init__(self, string_finder: StringFinder, payloads=MysqlPayloads()):
+        self.payloads = payloads
         self.sf = string_finder
 
     def tables(self):
@@ -50,7 +52,7 @@ class DbDumper:
         items_ = []
         i = 0
         while True:
-            item = self.sf.read_string("(SELECT {} from {} {} LIMIT 1 OFFSET {})".format(column, table, where, i))
+            item = self.sf.read_string(self.payloads.one_line_query(column, table, where, i))
             if item is None:
                 break
             items_.append(item)
