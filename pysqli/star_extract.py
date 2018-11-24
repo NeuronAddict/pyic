@@ -26,8 +26,6 @@ class StarExtract:
 
     def __call__(self, response):
         text = response.text[self.shift:]
-        print('-' * 45)
-        print(text)
         begin = text.find(self.pattern[0]) + len(self.pattern[0])
         end = text[begin:].find(self.pattern[1]) + begin
         return text[begin:end]
