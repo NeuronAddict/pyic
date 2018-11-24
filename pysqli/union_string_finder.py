@@ -1,4 +1,5 @@
 from pysqli import SqliEncoder
+from pysqli.payloads import MysqlPayloads
 from pysqli.string_finder import StringFinder
 from termcolor import colored
 
@@ -8,7 +9,7 @@ class UnionStringFinder(StringFinder):
     This class can get a string with the union technique
     """
 
-    def __init__(self, union_payload, request_builder, response_extractor, log = False):
+    def __init__(self, union_payload, request_builder, response_extractor, log=False, payloads=MysqlPayloads()):
         """
         Create a new UnionStringFinder. To do this, we need :
         - a union payload, ie 'UNION ALL SELECT 1,2,{}'
@@ -19,6 +20,7 @@ class UnionStringFinder(StringFinder):
         :param request_builder: callable that take a payload to return a response
         :param response_extractor: callable that take a response and return a string
         :param log: if True, log all requests / response (very verbose). False by default.
+        :param payloads payload collection
         """
         self.union_payload = union_payload
         self.request_builder = request_builder

