@@ -6,6 +6,7 @@ from pysqli.union_string_finder import UnionStringFinder
 from pysqli.star_extract import StarExtract
 from pysqli.db_dumper import DbDumper
 from pysqli.manual_loop import *
+from pysqli.payloads import *
 
 # noinspection PyUnresolvedReferences
 import requests
