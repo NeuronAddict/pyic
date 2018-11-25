@@ -16,6 +16,7 @@ class MysqlPayloads:
     def one_line_query(self, column, table, where='', offset=0):
         return "(SELECT {} from {} {} LIMIT 1 OFFSET {})".format(column, table, where, offset)
 
+
 class MssqlPayloads:
 
     def __init__(self, prefix=''):
@@ -32,4 +33,4 @@ class MssqlPayloads:
         self.str_file = "(LOAD_FILE({}))"
 
     def one_line_query(self, column, table, where='', offset=0):
-        return "(SELECT {} from {} {} OFFSET {} FETCH FIRST)".format(column, table, where, offset)
+        return "(SELECT TOP 1 {} FROM (SELECT TOP {} {} from {} {} ORDER BY {} DESC) a ORDER BY {})".format(column, offset + 1, column, table, where, column, column)
