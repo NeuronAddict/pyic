@@ -1,6 +1,9 @@
+import time
 from multiprocessing.pool import ThreadPool
+from threading import Thread
 
 from pysqli.blind_tester import BlindTester
+from pysqli.display import update_screen
 from pysqli.payloads import MysqlPayloads
 from pysqli.string_finder import StringFinder
 from pysqli.tools import *
@@ -19,6 +22,8 @@ class BlindStringFinder(StringFinder):
         """
         self.tester = tester
         self.payloads = payloads
+        self.partial = '.'
+        self.stop = False
 
     def search_length(self, sql, a, b):
         if a == b:
@@ -73,9 +78,14 @@ class BlindStringFinder(StringFinder):
         if self.tester.test(self.payloads.and_size_gt.format(sql, 0)):
             length = self.str_length(sql)
             with ThreadPool(40) as pool:
+                self.partial = ['.'] * length
+                self.start_update_display()
                 def f(i):
-                    return chr(self.search_char(sql, i, 10, 127))
-                finded_str = ''.join(pool.map(f, range(1, length + 1)))
+                    char = chr(self.search_char(sql, i, 10, 127))
+                    self.partial[i] = char
+                    return char
+                finded_str = ''.join(pool.map(f, range(0, length)))
+                self.stop_update_display()
                 return finded_str
         else:
             print("[-] string {} do not exist or is null".format(sql))
@@ -88,4 +98,21 @@ class BlindStringFinder(StringFinder):
         :return:
         """
         return self.read_string(self.payloads.str_file.format(encode_str(filename)))
+
+    def start_update_display(self):
+        self.stop = False
+
+        def f():
+            old = ''.join(self.partial)
+            while not self.stop:
+                time.sleep(.5)
+                partial = ''.join(self.partial)
+                update_screen(old, partial)
+                old = partial
+
+        thread = Thread(None, f)
+        thread.start()
+
+    def stop_update_display(self):
+        self.stop = True
 
