@@ -1,10 +1,12 @@
+import sys
+import threading
 import time
 from multiprocessing.pool import ThreadPool
 from threading import Thread
 
 from pysqli.blind_tester import BlindTester
 from pysqli.payloads import MysqlPayloads
-from pysqli.percent_display import PercentDisplay
+from pysqli.percent_display import PercentDisplay, ThreadedPercentDisplay
 from pysqli.string_finder import StringFinder
 from pysqli.tools import *
 
@@ -23,7 +25,6 @@ class BlindStringFinder(StringFinder):
         self.pd = None
         self.tester = tester
         self.payloads = payloads
-        self.partial_counter = 0
         self.stop = False
 
     def search_length(self, sql, a, b):
@@ -77,21 +78,24 @@ class BlindStringFinder(StringFinder):
         :return:
         """
         if self.tester.test(self.payloads.and_size_gt.format(sql, 0)):
+
+            sys.stdout.write('[(calculating length)]')
+            sys.stdout.flush()
+
             length = self.str_length(sql)
+            sys.stdout.write('\r')
+            sys.stdout.flush()
+            tpd = ThreadedPercentDisplay(length)
+            tpd.start()
+
+            def f(i):
+                char = chr(self.search_char(sql, i, 10, 127))
+                tpd.add(1)
+                return char
+
             with ThreadPool(40) as pool:
-                self.start_update_display(length)
-                import threading
-                thread_lock = threading.Lock()
-
-                def f(i):
-                    char = chr(self.search_char(sql, i, 10, 127))
-                    with thread_lock:
-                        self.partial_counter += 1
-                    return char
-
                 finded_str = ''.join(pool.map(f, range(0, length)))
-                self.stop_update_display()
-                self.pd.end()
+                tpd.stop_update_display()
                 return finded_str
         else:
             print("[-] string {} do not exist or is null".format(sql))
@@ -104,20 +108,3 @@ class BlindStringFinder(StringFinder):
         :return:
         """
         return self.read_string(self.payloads.str_file.format(encode_str(filename)))
-
-    def start_update_display(self, total):
-        self.stop = False
-        self.pd = PercentDisplay(total)
-        self.pd.init_display()
-
-        def f():
-            while not self.stop:
-                time.sleep(.5)
-                self.pd.update_display(self.partial_counter)
-
-        self.display_thread = Thread(None, f)
-        self.display_thread.start()
-
-    def stop_update_display(self):
-        self.stop = True
-        self.display_thread.join()
