@@ -1,12 +1,9 @@
 import sys
-import threading
-import time
 from multiprocessing.pool import ThreadPool
-from threading import Thread
 
 from pysqli.blind_tester import BlindTester
 from pysqli.payloads import MysqlPayloads
-from pysqli.percent_display import PercentDisplay, ThreadedPercentDisplay
+from pysqli.percent_display import ThreadedPercentDisplay
 from pysqli.string_finder import StringFinder
 from pysqli.tools import *
 
