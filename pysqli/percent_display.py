@@ -21,6 +21,7 @@ class PercentDisplay:
 
     def end(self):
         self.update_display(self.total)
+        sys.stdout.write('\n')
         sys.stdout.flush()
 
 

@@ -94,7 +94,7 @@ class BlindStringFinder(StringFinder):
                 return char
 
             with ThreadPool(40) as pool:
-                finded_str = ''.join(pool.map(f, range(0, length)))
+                finded_str = ''.join(pool.map(f, range(1, length + 1)))
                 tpd.stop_update_display()
                 return finded_str
         else:
