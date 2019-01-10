@@ -29,5 +29,6 @@ class BlindTester:
         r = self.request_builder(payload)
         if self.log:
             print("[*] request {}".format(r.url))
+            print("[*] payload {}".format(payload))            
             print("[*] response: {}".format(r.text))
         return self.response_condition(r)
