@@ -1,8 +1,11 @@
+from termcolor import colored
+
+
 class BlindTester:
     """
     A Tester can test if a sqli injected query return true or false (its a blind tester).
     """
-    def __init__(self, request_builder, response_condition, log=False):
+    def __init__(self, request_builder, response_condition, logger=None):
         """
         Create e new Blind tester. To do this, we need :
         - a query, make with requests from a payload
@@ -22,13 +25,12 @@ class BlindTester:
         :param log: if True, log all requests / response (very verbose). False by default.
         """
         self.response_condition = response_condition
-        self.log = log
+        self.logger = logger
         self.request_builder = request_builder
 
     def test(self, payload):
         r = self.request_builder(payload)
-        if self.log:
-            print("[*] request {}".format(r.url))
-            print("[*] payload {}".format(payload))            
-            print("[*] response: {}".format(r.text))
+        if self.logger is not None:
+            print(colored("[*] payload : {}".format(payload), 'red'))
+            self.logger(r)
         return self.response_condition(r)
