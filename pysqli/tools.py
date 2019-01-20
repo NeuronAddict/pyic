@@ -1,14 +1,18 @@
 def encode_str(sql_str):
     return '0x' + sql_str.encode('ascii').hex()
 
+
 def es(sql_str):
     return encode_str(sql_str)
 
+
 class SqliEncoder:
-    
+
+    @staticmethod
     def str_to_hexa(sql_str):
         return '0x' + sql_str.encode('ascii').hex()
 
+    @staticmethod
     def str_to_char(sql_str):
         """ Encode the string with the CHAR technique.
 
@@ -23,5 +27,3 @@ class SqliEncoder:
                 ret += ','
             i += 1
         return ret + ')'
-
-
