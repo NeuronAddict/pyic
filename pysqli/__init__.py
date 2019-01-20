@@ -7,6 +7,7 @@ from pysqli.star_extract import StarExtract
 from pysqli.db_dumper import DbDumper
 from pysqli.manual_loop import *
 from pysqli.payloads import *
+from pysqli.loggers import *
 
 # noinspection PyUnresolvedReferences
 import requests
