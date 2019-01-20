@@ -22,7 +22,7 @@ class BlindTester:
 
         :param request_builder: callable that take a payload to return a response
         :param response_condition: callable that take a response and return a boolean
-        :param log: if True, log all requests / response (very verbose). False by default.
+        :param logger: if not None, use a logger (see loggers.py). For Http use logger=HttpLogger()
         """
         self.response_condition = response_condition
         self.logger = logger
