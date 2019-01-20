@@ -13,7 +13,7 @@ class MockRequest:
 class MockBlindTester(BlindTester):
 
     def __init__(self, text):
-        super(MockBlindTester, self).__init__( lambda payload : MockRequest(payload), lambda a: a.text == text, True)
+        super(MockBlindTester, self).__init__(lambda payload: MockRequest(payload), lambda a: a.text == text)
 
 
 class TestTester(TestCase):
