@@ -12,9 +12,10 @@ from pysqli.payloads import *
 import requests
 
 if __name__ == '__main__':
-    print("#" * 25 + "\n#\n# python sqli lib loaded!\n#\n" + "#" * 25)
+    print("#" * 25 + "\n#\n# pyic lib loaded!\n#\n" + "#" * 25)
     print('\nTo get help, type help(object) with object the following : '
           'Tester, BlindStringFinder, UnionStringFinder, BlindTester, '
           'SqliEncoder, DbDumper, HasText, Not, loop, StarExtract\n')
     print('Type dir() to see all availables types and try help(<type>) to search other help\n')
     print('You can also read the source code!\n')
+    print('https://github.com/NeuronAddict/pyic\n')

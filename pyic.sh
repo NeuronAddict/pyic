@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-if [[ -d pysqli ]]
+if [[ -d pyic ]]
 then
-    echo "Please launch me on the pysqli dir (not pysqli/pysqli)"
+    echo "Please launch me on the pyic dir (not pyic/pysqli)"
+    exit 0
 fi
 
 export PYTHONSTARTUP=./pysqli/__init__.py
