@@ -1,3 +1,6 @@
+import time
+
+
 def encode_str(sql_str):
     return '0x' + sql_str.encode('ascii').hex()
 
@@ -27,3 +30,12 @@ class SqliEncoder:
                 ret += ','
             i += 1
         return ret + ')'
+
+
+def request_time(rb, payload):
+    start = time.perf_counter()
+    r = rb(payload)
+    # noinspection PyStatementEffect
+    r.text
+    end = time.perf_counter()
+    return end - start
