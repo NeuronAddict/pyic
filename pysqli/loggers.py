@@ -14,5 +14,5 @@ class HttpLogger:
             print(colored('{}'.format(r.request.body), 'cyan'))
 
         print(colored('\n[*] < {}'.format(r.status_code), 'magenta'))
-        print(colored("[*] < {}".format(r.headers), 'magenta'))
+        print(colored("[*] < {}\n".format(r.headers), 'magenta'))
         print("{}\n".format(r.text))
