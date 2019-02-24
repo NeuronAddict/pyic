@@ -2,6 +2,10 @@ from termcolor import colored
 
 
 class HttpLogger:
+
+    def __init__(self, extractor=None):
+        self.extractor = extractor
+
     def __call__(self, r):
 
         print(colored("\n[*] > {} {}".format(r.request.method, r.url), 'cyan'))
@@ -15,4 +19,8 @@ class HttpLogger:
 
         print(colored('\n[*] < {}'.format(r.status_code), 'magenta'))
         print(colored("[*] < {}\n".format(r.headers), 'magenta'))
-        print("{}\n".format(r.text))
+
+        if self.extractor is None:
+            print("{}\n".format(r.text))
+        else:
+            print("{}\n".format(self.extractor(r)))
