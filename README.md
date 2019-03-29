@@ -30,6 +30,7 @@ This apps expose some simple vulnerabilities, the php code is very simple.
 
 First, we launch the console and create a request builder.
 ```
+$ pip3 install termcolor html2text # may be you need some python requirements
 $ cd ~/pyic
 $ ./pyic.sh 
 Python 3.6.8 (default, Jan  3 2019, 03:42:36) 
