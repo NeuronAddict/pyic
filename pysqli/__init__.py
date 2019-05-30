@@ -8,7 +8,7 @@ from pysqli.db_dumper import DbDumper
 from pysqli.manual_loop import *
 from pysqli.payloads import *
 from pysqli.loggers import *
-from pysqli.html2text_extract import *
+from pysqli.html2text_filter import *
 
 # noinspection PyUnresolvedReferences
 import requests
