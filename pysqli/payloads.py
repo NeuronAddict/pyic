@@ -17,6 +17,9 @@ class MysqlPayloads:
     def one_line_query(self, column, table, where='', offset=0):
         return "(SELECT{0}{1}{0}from{0}{2}{0}{3}{0}LIMIT{0}1{0}OFFSET{0}{4})".format(self.space, column, table, where, offset)
 
+    def where(self, param, value):
+        return "WHERE{0}{1}={2}".format(self.space, param, value)
+
 
 class MssqlPayloads:
 

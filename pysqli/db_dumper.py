@@ -29,7 +29,7 @@ class DbDumper:
         :return: list of the columns of this table
         """
         return self.list_query('column_name', 'information_schema.columns',
-                               "WHERE table_name = {}".format(table_value))
+                               self.payloads.where('table_name', "'{}'".format(table_value)))
 
     def content(self, table, column):
         """
