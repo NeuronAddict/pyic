@@ -24,7 +24,9 @@ class ManualLoop:
                 self.logger(r)
 
             if extractor is not None:
-                print(colored('[+] find value : {}'.format(extractor(r)), 'green'))
+                value = extractor(r)
+                if value is not None:
+                    print(colored('[+] find value : {}'.format(value), 'green'))
 
 
 def loop(rb, logger=HttpLogger(), extractor=None):

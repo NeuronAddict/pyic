@@ -3,8 +3,8 @@ from termcolor import colored
 
 class HttpLogger:
 
-    def __init__(self, extractor=None):
-        self.extractor = extractor
+    def __init__(self, filter=None):
+        self.extractor = filter
 
     def __call__(self, r):
 
