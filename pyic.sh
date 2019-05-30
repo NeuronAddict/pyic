@@ -6,6 +6,9 @@ then
     exit 0
 fi
 
-export PYTHONSTARTUP=./pysqli/__init__.py
+FILE=$(mktemp)
+
+cat ./pysqli/__init__.py ${1} >> ${FILE}
+
 export PYTHONPATH="$PYTHONPATH:."
-python3
+python3 -i ${FILE}
