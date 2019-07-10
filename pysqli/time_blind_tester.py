@@ -28,12 +28,17 @@ class TimeBlindTester:
 
         print('[*] Start callibrate...')
 
+        avg_true = 0
+        avg_false = 0
+
         for i in range(0, self.CALIBRATE_TEST_PASSES):
 
             print('[*] Passe {}'.format(i))
 
             t = request_time(self.rb, '1=0')
             print('[*] get {} for False'.format(t))
+
+            avg_false += t
 
             if min_false > t:
                 min_false = t
@@ -43,10 +48,18 @@ class TimeBlindTester:
             t = request_time(self.rb, '1=1')
             print('[*] get {} for True'.format(t))
 
+            avg_true += t
+
             if min_true > t:
                 min_true = t
             if max_true < t:
                 max_true = t
+
+        avg_false /= self.CALIBRATE_TEST_PASSES
+        avg_true /= self.CALIBRATE_TEST_PASSES
+
+        print('[*] avg False = {}'.format(avg_false))
+        print('[*] avg True = {}'.format(avg_true))
 
         delta_true = max_true - min_true
         delta_false = max_false - min_false
@@ -54,7 +67,7 @@ class TimeBlindTester:
         print('[*] delta False = {}'.format(delta_false))
         print('[*] delta True = {}'.format(delta_true))
 
-        delta = max(delta_true / 4, delta_false / 4, min_false / 4)
+        delta = max(delta_true / 4, delta_false / 4, min_false / 4, (avg_true - avg_false) / 4)
 
         self.fmin_true = min_true - delta
         self.fmax_false = max_false + delta
