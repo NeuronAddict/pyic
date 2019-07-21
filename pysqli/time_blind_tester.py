@@ -6,9 +6,16 @@ from pysqli.tools import request_time
 class TimeBlindTester:
     CALIBRATE_TEST_PASSES = 10
 
-    def __init__(self, rb):
+    def __init__(self, rb, fmax_false=-1, fmin_true=-1):
         self.rb = rb
-        self.calibrate()
+        if (fmin_true == -1 or fmin_true == -1):
+            self.calibrate()
+        else:
+            self.fmin_true = fmin_true
+            self.fmax_false = fmax_false
+
+        print('[*] min_value for True = {}'.format(self.fmin_true))
+        print('[*] max_value for False = {}'.format(self.fmax_false))
 
     def test(self, payload):
         delta = request_time(self.rb, payload)
@@ -16,7 +23,8 @@ class TimeBlindTester:
             return False
         if delta > self.fmin_true:
             return True
-        raise Exception('Time value too close, can\'t determine True of False, try to increase the sleep delay')
+        raise Exception('Time value too close ({} < delta = {} < {}), can\'t determine True of False, '
+                        'try to increase the sleep delay'.format(self.fmax_false, delta, self.fmin_true))
 
     def calibrate(self):
 
@@ -73,8 +81,6 @@ class TimeBlindTester:
         self.fmax_false = max_false + delta
 
         print('[+] delta = {}'.format(delta))
-        print('[+] min_value for True = {}'.format(self.fmin_true))
-        print('[+] max_value for False = {}'.format(self.fmax_false))
 
         if self.fmin_true <= self.fmax_false or abs(self.fmin_true - self.fmax_false) < delta:
             raise Exception('[-] Callibrate fail, false and true values are too close, Try to increase the sleep delay')
