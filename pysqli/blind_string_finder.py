@@ -86,9 +86,13 @@ class BlindStringFinder(StringFinder):
             tpd.start()
 
             def f(i):
-                char = chr(self.search_char(sql, i, 10, 127))
-                tpd.add(1)
-                return char
+                try:
+                    char = chr(self.search_char(sql, i, 10, 127))
+                    tpd.add(1)
+                    return char
+                except Exception as e:
+                    print('[-] error on get char {} (will be \'*\') {}'.format(i, e))
+                    return '*'
 
             with ThreadPool(40) as pool:
                 finded_str = ''.join(pool.map(f, range(1, length + 1)))
