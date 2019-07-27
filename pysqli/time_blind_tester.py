@@ -8,7 +8,7 @@ class TimeBlindTester:
 
     def __init__(self, rb, fmax_false=-1, fmin_true=-1):
         self.rb = rb
-        if (fmin_true == -1 or fmin_true == -1):
+        if fmin_true == -1 or fmin_true == -1:
             self.calibrate()
         else:
             self.fmin_true = fmin_true
@@ -18,13 +18,17 @@ class TimeBlindTester:
         print('[*] max_value for False = {}'.format(self.fmax_false))
 
     def test(self, payload):
-        delta = request_time(self.rb, payload)
-        if delta < self.fmax_false:
-            return False
-        if delta > self.fmin_true:
-            return True
+
+        for i in range(3):
+            delta = request_time(self.rb, payload)
+            if delta < self.fmax_false:
+                return False
+            if delta > self.fmin_true:
+                return True
+
         raise Exception('Time value too close ({} < delta = {} < {}), can\'t determine True of False, '
-                        'try to increase the sleep delay'.format(self.fmax_false, delta, self.fmin_true))
+                        'try to increase the sleep delay or change the values of TimeBlindTester params "help(TimeBlindTester)"'
+                        .format(self.fmax_false, delta, self.fmin_true))
 
     def calibrate(self):
 
