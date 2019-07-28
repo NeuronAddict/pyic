@@ -81,10 +81,15 @@ class TimeBlindTester:
 
         delta = max(delta_true / 4, delta_false / 4, min_false / 4, (avg_true - avg_false) / 4)
 
-        self.fmin_true = min_true - delta
-        self.fmax_false = max_false + delta
+        self.fmin_true = min_true
+        self.fmax_false = max_false
 
-        print('[+] delta = {}'.format(delta))
+        print('[+] fmax_false = {}, fmin_true = {}, delta = {}'.format(delta, self.fmax_false, self.fmin_true))
 
-        if self.fmin_true <= self.fmax_false or abs(self.fmin_true - self.fmax_false) < delta:
-            raise Exception('[-] Callibrate fail, false and true values are too close, Try to increase the sleep delay')
+        if self.fmin_true <= self.fmax_false:
+            raise Exception('[-] Callibrate fail, max_false = {} need to be < min_true {}'
+                            .format(self.fmin_true, self.fmax_false))
+
+        if abs(self.fmin_true - self.fmax_false) < delta:
+            raise Exception('[-] Callibrate fail, false and true values are too close, delta is too big '
+                            '({}, {}), delta = {})'.format(self.fmin_true, self.fmax_false, delta))
