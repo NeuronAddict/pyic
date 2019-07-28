@@ -1,4 +1,7 @@
 # pyic
+
+[![Build Status](https://travis-ci.com/NeuronAddict/pyic.svg?branch=master)](https://travis-ci.com/NeuronAddict/pyic)
+
 Python injection console
 
 pyic is a set of python libs, loaded by a console to make RCE and SQLi more reliable.
