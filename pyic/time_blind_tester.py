@@ -69,22 +69,20 @@ class TimeBlindTester:
 
         avg_false /= self.CALIBRATE_TEST_PASSES
         avg_true /= self.CALIBRATE_TEST_PASSES
-
         print('[*] avg False = {}'.format(avg_false))
         print('[*] avg True = {}'.format(avg_true))
 
-        delta_true = max_true - min_true
-        delta_false = max_false - min_false
+        delta = (min_true - max_false)
 
-        print('[*] delta False = {}'.format(delta_false))
-        print('[*] delta True = {}'.format(delta_true))
+        self.fmin_true = min_true - (delta / 3)
+        self.fmax_false = max_false + (delta / 3)
 
-        delta = max(delta_true / 4, delta_false / 4, min_false / 4, (avg_true - avg_false) / 4)
+        print('[+] fmax_false = {}, fmin_true = {}, delta = {}'.format(delta, self.fmax_false, self.fmin_true))
 
-        self.fmin_true = min_true - delta
-        self.fmax_false = max_false + delta
+        if self.fmin_true <= self.fmax_false:
+            raise Exception('[-] Callibrate fail, max_false = {} need to be < min_true {}'
+                            .format(self.fmin_true, self.fmax_false))
 
-        print('[+] delta = {}'.format(delta))
-
-        if self.fmin_true <= self.fmax_false or abs(self.fmin_true - self.fmax_false) < delta:
-            raise Exception('[-] Callibrate fail, false and true values are too close, Try to increase the sleep delay')
+        # if abs(self.fmin_true - self.fmax_false) < delta:
+        #     raise Exception('[-] Callibrate fail, false and true values are too close, delta is too big '
+        #                     '({}, {}), delta = {})'.format(self.fmin_true, self.fmax_false, delta))

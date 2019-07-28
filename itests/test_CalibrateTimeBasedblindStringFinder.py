@@ -3,10 +3,8 @@ import requests
 from unittest import TestCase
 from pyic import BlindStringFinder, SqliEncoder, TimeBlindTester
 
-logging.basicConfig(level=logging.DEBUG)
 
-
-class TestBlindStringFinder(TestCase):
+class TestCalibrateTimeBasedBlindStringFinder(TestCase):
     """
     This test need the docker sqli in https://github.com/NeuronAddict/vulnerable-apps.git running
     """
@@ -16,7 +14,6 @@ class TestBlindStringFinder(TestCase):
             lambda payload: requests.post('http://127.0.0.1:8181/login.php', data={'login': 'admin',
                                                                                    'pass': "' OR ( ({}) AND sleep(5) ) #".format(
                                                                                        payload)}),
-            3, 4
         )
 
         self.string_finder = BlindStringFinder(self.tester)
