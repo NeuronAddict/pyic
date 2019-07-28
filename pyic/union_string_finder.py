@@ -1,5 +1,5 @@
-from pysqli import SqliEncoder
-from pysqli.string_finder import StringFinder
+from pyic import SqliEncoder
+from pyic.string_finder import StringFinder
 
 
 class UnionStringFinder(StringFinder):

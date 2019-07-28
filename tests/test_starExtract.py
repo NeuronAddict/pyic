@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from pysqli.star_extract import StarExtract
+from pyic.star_extract import StarExtract
 
 
 class MockResponse:

@@ -1,15 +1,15 @@
-from pysqli.blind_tester import BlindTester
-from pysqli.tools import SqliEncoder
-from pysqli.body_conditions import *
-from pysqli.blind_string_finder import BlindStringFinder
-from pysqli.union_string_finder import UnionStringFinder
-from pysqli.star_extract import StarExtract
-from pysqli.db_dumper import DbDumper
-from pysqli.manual_loop import *
-from pysqli.payloads import *
-from pysqli.loggers import *
-from pysqli.html2text_filter import *
-from pysqli.time_blind_tester import *
+from pyic.blind_tester import BlindTester
+from pyic.tools import SqliEncoder
+from pyic.body_conditions import *
+from pyic.blind_string_finder import BlindStringFinder
+from pyic.union_string_finder import UnionStringFinder
+from pyic.star_extract import StarExtract
+from pyic.db_dumper import DbDumper
+from pyic.manual_loop import *
+from pyic.payloads import *
+from pyic.loggers import *
+from pyic.html2text_filter import *
+from pyic.time_blind_tester import *
 
 # noinspection PyUnresolvedReferences
 import requests

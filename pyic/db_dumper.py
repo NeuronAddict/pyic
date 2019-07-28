@@ -1,5 +1,5 @@
-from pysqli.blind_string_finder import StringFinder
-from pysqli.payloads import MysqlPayloads
+from pyic.blind_string_finder import StringFinder
+from pyic.payloads import MysqlPayloads
 
 
 class DbDumper:

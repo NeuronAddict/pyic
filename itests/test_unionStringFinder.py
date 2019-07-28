@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import requests
 
-from pysqli import UnionStringFinder, StarExtract, SqliEncoder
+from pyic import UnionStringFinder, StarExtract, SqliEncoder
 
 
 class TestUnionStringFinder(TestCase):

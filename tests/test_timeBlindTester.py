@@ -2,7 +2,7 @@ import random
 import time
 from unittest import TestCase
 
-from pysqli.time_blind_tester import TimeBlindTester
+from pyic.time_blind_tester import TimeBlindTester
 
 
 class MockRequest:

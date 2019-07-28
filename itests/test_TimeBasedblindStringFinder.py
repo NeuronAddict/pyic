@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import requests
 
-from pysqli import BlindTester, BlindStringFinder, SqliEncoder, TimeBlindTester
+from pyic import BlindTester, BlindStringFinder, SqliEncoder, TimeBlindTester
 
 
 class TestBlindStringFinder(TestCase):

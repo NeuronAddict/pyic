@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from pysqli.body_conditions import HasText, Not
+from pyic.body_conditions import HasText, Not
 
 
 class MockRequest:
