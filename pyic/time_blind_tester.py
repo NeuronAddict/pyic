@@ -1,6 +1,6 @@
 import sys
 
-from pysqli.tools import request_time
+from pyic.tools import request_time
 
 
 class TimeBlindTester:

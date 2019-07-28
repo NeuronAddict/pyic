@@ -1,6 +1,6 @@
 import unittest
 from unittest import TestCase
-from pysqli.tools import *
+from pyic.tools import *
 
 
 class TestEncode_str(TestCase):

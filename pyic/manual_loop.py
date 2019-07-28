@@ -1,5 +1,5 @@
 from termcolor import colored
-from pysqli.loggers import HttpLogger
+from pyic.loggers import HttpLogger
 
 
 class ManualLoop:

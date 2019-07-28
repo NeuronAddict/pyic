@@ -2,6 +2,6 @@
 
 FILE=$(mktemp)
 cat <<EOF ${1} >> ${FILE}
-from pysqli import *
+from pyic import *
 EOF
 python3 -i ${FILE}

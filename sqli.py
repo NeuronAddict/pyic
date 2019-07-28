@@ -2,11 +2,11 @@
 
 import requests
 
-from pysqli import SqliEncoder, DbDumper
-from pysqli.blind_tester import BlindTester
-from pysqli.blind_string_finder import BlindStringFinder
-from pysqli.star_extract import StarExtract
-from pysqli.union_string_finder import UnionStringFinder
+from pyic import SqliEncoder, DbDumper
+from pyic.blind_tester import BlindTester
+from pyic.blind_string_finder import BlindStringFinder
+from pyic.star_extract import StarExtract
+from pyic.union_string_finder import UnionStringFinder
 
 
 

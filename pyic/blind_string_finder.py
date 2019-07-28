@@ -1,11 +1,11 @@
 import sys
 from multiprocessing.pool import ThreadPool
 
-from pysqli.blind_tester import BlindTester
-from pysqli.payloads import MysqlPayloads
-from pysqli.percent_display import ThreadedPercentDisplay
-from pysqli.string_finder import StringFinder
-from pysqli.tools import *
+from pyic.blind_tester import BlindTester
+from pyic.payloads import MysqlPayloads
+from pyic.percent_display import ThreadedPercentDisplay
+from pyic.string_finder import StringFinder
+from pyic.tools import *
 
 
 class BlindStringFinder(StringFinder):

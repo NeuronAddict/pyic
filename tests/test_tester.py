@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from pysqli.blind_tester import BlindTester
+from pyic.blind_tester import BlindTester
 
 
 class MockRequest:
