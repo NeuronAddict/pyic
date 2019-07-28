@@ -8,4 +8,4 @@ setup(name='pysqli',
       author_email='',
       license='GNUv3',
       packages=['pysqli'],
-      zip_safe=False)
+      zip_safe=False, install_requires=['requests', 'html2text', 'termcolor'])
