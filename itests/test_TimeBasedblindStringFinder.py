@@ -1,8 +1,9 @@
-from unittest import TestCase
-
+import logging
 import requests
+from unittest import TestCase
+from pyic import BlindStringFinder, SqliEncoder, TimeBlindTester
 
-from pyic import BlindTester, BlindStringFinder, SqliEncoder, TimeBlindTester
+logging.basicConfig(level=logging.DEBUG)
 
 
 class TestBlindStringFinder(TestCase):
@@ -11,13 +12,12 @@ class TestBlindStringFinder(TestCase):
     """
 
     def setUp(self):
-
         tester = TimeBlindTester(
             lambda payload: requests.post('http://127.0.0.1:8181/login.php', data={'login': 'admin',
                                                                                    'pass': "' OR ( ({}) AND sleep(5) ) #".format(
                                                                                        payload)}),
             3, 4.5
-            )
+        )
 
         self.string_finder = BlindStringFinder(tester)
 
