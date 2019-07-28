@@ -11,7 +11,7 @@ install:
 before_script:
   - docker-compose -f docker/mysql/docker-compose.yml up --build -d
 script:
-    - pytest -s -v
+    - sleep 20 && pytest
 after_script:
   - docker-compose down
 after_success:
