@@ -19,4 +19,6 @@ services:
     - ./src:/var/www/html
     ports:
     - 8181:80
+    depends_on:
+      - mysql
 
