@@ -5,9 +5,11 @@ from unittest import TestCase
 from pyic.time_blind_tester import TimeBlindTester
 
 
-class MockRequest:
+class MockResponse:
     def __init__(self, text=''):
         self.text = text
+        self.status_code = 200
+        self.headers = {}
 
 
 def rb(payload):
@@ -19,7 +21,7 @@ def rb(payload):
     if payload == '1=1':
         t = random.uniform(7, 10)
         time.sleep(t / 100)
-    return MockRequest()
+    return MockResponse()
 
 
 def bad_rb(payload):
@@ -31,7 +33,7 @@ def bad_rb(payload):
     if payload == '1=1':
         t = random.uniform(1, 0)
         time.sleep(t / 100)
-    return MockRequest()
+    return MockResponse()
 
 
 def bad_rb2(payload):
@@ -41,7 +43,7 @@ def bad_rb2(payload):
 
     if payload == '1=1':
         time.sleep(0.1)
-    return MockRequest()
+    return MockResponse()
 
 
 class TestTimeBlindTester(TestCase):
