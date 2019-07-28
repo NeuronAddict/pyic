@@ -9,6 +9,7 @@ from pysqli.manual_loop import *
 from pysqli.payloads import *
 from pysqli.loggers import *
 from pysqli.html2text_filter import *
+from pysqli.time_blind_tester import *
 
 # noinspection PyUnresolvedReferences
 import requests
