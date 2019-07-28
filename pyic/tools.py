@@ -1,3 +1,4 @@
+import logging
 import time
 
 
@@ -37,5 +38,7 @@ def request_time(rb, payload):
     r = rb(payload)
     # noinspection PyStatementEffect
     r.text
+    logging.debug("Request: %s %s %s", r.request.method, r.request.url, r.request.body)
+    logging.debug("Response: Status code: %d %s %s", r.status_code, r.headers, r.text)
     end = time.perf_counter()
     return end - start
