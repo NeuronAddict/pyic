@@ -15,6 +15,17 @@ class DbDumper:
         self.payloads = payloads
         self.sf = string_finder
 
+    def dump(self, table):
+        """
+        Dump a table
+        :param table: the table name, do not encode the value
+        :return:
+        """
+        columns = self.columns(table)
+        print('[+] columns of {} : {}'.format(table, columns))
+        for column in columns:
+            print('[+] values for column {} : {}'.format(column, self.content(table, column)))
+
     def tables(self):
         """
         list the tables of the current databases
