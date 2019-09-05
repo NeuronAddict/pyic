@@ -8,11 +8,12 @@ pyic is a set of python libs, loaded by a console to make RCE and SQLi more reli
 
 ## the fact
 
-When we write an sqli poc, we already have the same problem :
-* base code is always different (use encoding, url specific logic, evasion, ...)
-* attack is always the same, for example, blid injection can be complex to re write every time.
+When we write an sqli poc, we always have the same issue :
+* base codes are differents (use encoding, url specific logic, evasion, ...)
+* attack is always the same, for example, blind injection can be complex to rewrite every time.
 
-To address this problem, this project load a python console, that allow you to write a on a little part of our code (the only needed) and provide tools to perform attacks with your code base.
+To address this problem, this project load a python console, that allow you to write a little part of the exploit code 
+(the only needed) and provide functions to perform attacks.
 
 ## Let's begin
 
@@ -26,7 +27,7 @@ $ nano docker-compose.yml # edit your port, bind ip, etc. DON'T EXPOSE THE APP O
 $ docker-compose up
  ...
 ```
-Here, our vulnerable app is lisening on 127.0.0.1:8181.
+Now, our vulnerable app is listening on 127.0.0.1:8181.
 This apps expose some simple vulnerabilities, the php code is very simple.
 
 ### 2. use pyic
@@ -35,6 +36,7 @@ First, we launch the console and create a request builder.
 ```
 $ pip3 install termcolor html2text # may be you need some python requirements
 $ cd ~/pyic
+$ pip install -e . # to use git code and pull updates
 $ ./pyic.sh 
 Python 3.6.8 (default, Jan  3 2019, 03:42:36) 
 [GCC 8.2.0] on linux
@@ -56,7 +58,7 @@ https://github.com/NeuronAddict/pyic
 >>> rb = lambda payload : requests.get('http://127.0.0.1:8181/comment.php', params={'id': '1 AND {}'.format(payload), 'log': '1'})
 ```
 
-Now, we will create a loop, that will send our payload and show the result.
+Now, we can create a loop, that will send our payload and show the result.
 
 ```
 >>> loop(rb)
@@ -101,7 +103,7 @@ payload : >>> 1=0
 <br /><br /><p>[-] No results</p>
 ```
 
-What have we do? we have quickly tested that the response is different when assertion is true or false.
+What have we do? we have quickly tested that the response is different whether our assertion is true or false.
 During an audit, we can also quickly send the code that generate the rb to our team.
 
 ### 3 Exploit 
@@ -120,14 +122,14 @@ payload : >>> exit
 ```
 
 We have created : 
-* A tester, that use our request builder and get a criteria that say if the assertion is true or false. Here it is a lambda, but it can be every callable (a fundtion ou a callable object).
+* A tester, that use our request builder and get a criteria that say if the assertion is true or false. Here it is a lambda, but it can be every callable (a function or a callable object).
 * A BlindStringFinder, that use our tester to get the value of a string by blind injection. It use a binary search algorithm to make the process more speed.
 
 And now, we can give every string to our BlindStringFinder and quickly get values from the database.
 
 ### 4 read file
 
-Now, we want see is file can be reads. to make this, we can read the string LOAD_FILE('/etc/passwd').
+Now, we want see if file can be reads. To make this, we can read the string LOAD_FILE('/etc/passwd').
 
 But there is a problem : what if when our vulnerable app give us an item, they wait 3s?
 Ok, now lets imagine the time to read a simple file chars by chars. My /etc/passwd has ~3000 chars, the time will become about 3000 * (log2(255)/2) * 3.
@@ -173,7 +175,7 @@ Nice, we don't have to rewrite all this code every time!
 
 ### 5 Extract some value
 
-Now, lets exploit another vulnerabily, we have an injection that display the output of the query on a field.
+Now, lets exploit another vulnerability, we have an injection that display the output of the query on a field.
 
 ```
 >>> rb = lambda payload : requests.get('http://127.0.0.1:8181/comment.php', params={'id': '1 {}'.format(payload), 'log': '1'})
@@ -192,7 +194,7 @@ What have we do?
 * The StarExtract will get the first pattern that match his expression and display only the value on the '*'
 
 The benefit is: 
-* When we discover the vuln, 2 lines of code are suffisient to share the vuln with the team or publish them.
+* When we discover the vuln, 2 lines of code are sufficient to share the vuln with the team or publish them.
 * We can add all logic that we want (evasion, encoding, ...) the only limit is the python language.
 * We can use the output to build more complex exploit.
 
@@ -224,18 +226,3 @@ This tool is very young, more doc is comming, if you want more doc or experiment
 
 - move doc on the wiki
 - chaining extractors
-- improve logging (see branch)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
