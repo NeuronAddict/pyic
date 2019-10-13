@@ -25,11 +25,11 @@ class DbDumper:
     def columns(self, table_value):
         """
         Dump the columns of a table
-        :param table_value: table name
+        :param table_value: table name with quotes or encoded if needed
         :return: list of the columns of this table
         """
         return self.list_query('column_name', 'information_schema.columns',
-                               self.payloads.where('table_name', "'{}'".format(table_value)))
+                               self.payloads.where('table_name', "{}".format(table_value)))
 
     def content(self, table, column):
         """
