@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+    - POSTGRES_USER=pgsql
+    - POSTGRES_PASSWORD=pgsql
+    - POSTGRES_DB=db
+    volumes:
+    - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  web:
+    build: 
+      context: php
+    volumes:
+    - ./src:/var/www/html
+    ports:
+    - 8182:80
+    depends_on:
+      - postgres
+
