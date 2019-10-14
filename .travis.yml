@@ -10,9 +10,11 @@ install:
   - pip install .
 before_script:
   - docker-compose -f docker/mysql/docker-compose.yml up --build -d
+  - docker-compose -f docker/pgsql/docker-compose.yml up --build -d
 script:
     - sleep 20 && pytest
 after_script:
   - docker-compose -f docker/mysql/docker-compose.yml down
+  - docker-compose -f docker/pgsql/docker-compose.yml down
 after_success:
   - codecov # submit coverage
