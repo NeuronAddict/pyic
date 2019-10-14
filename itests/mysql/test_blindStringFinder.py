@@ -2,7 +2,7 @@ from unittest import TestCase
 
 import requests
 
-from pyic import BlindTester, BlindStringFinder, SqliEncoder
+from pyic import BlindTester, BlindStringFinder, SqliEncoder, MysqlPayloads
 
 
 class TestBlindStringFinder(TestCase):
@@ -13,7 +13,7 @@ class TestBlindStringFinder(TestCase):
                                           data={'login': 'admin', 'pass': "' OR ({}) #".format(payload)}),
             lambda r: 'Logged' in r.text)
 
-        self.string_finder = BlindStringFinder(self.tester)
+        self.string_finder = BlindStringFinder(self.tester, MysqlPayloads())
 
     def test_false_serie(self):
         for i in range(0, 10):
