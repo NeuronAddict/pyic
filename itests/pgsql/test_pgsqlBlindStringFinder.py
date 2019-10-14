@@ -5,7 +5,7 @@ import requests
 from pyic import BlindTester, BlindStringFinder, PGSQLPayloads
 
 
-class TestBlindStringFinder(TestCase):
+class TestPGSQLBlindStringFinder(TestCase):
 
     def setUp(self):
         self.tester = BlindTester(

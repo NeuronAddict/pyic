@@ -5,7 +5,7 @@ import requests
 from pyic import UnionStringFinder, StarExtract
 
 
-class TestUnionStringFinder(TestCase):
+class TestPGSQLUnionStringFinder(TestCase):
 
     def setUp(self):
         self.union_string_finder = UnionStringFinder('AND 1=0 UNION ALL SELECT 1,$$2$$,{}',
