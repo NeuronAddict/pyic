@@ -1,3 +1,5 @@
+from prettytable import PrettyTable
+
 from pyic.blind_string_finder import StringFinder
 from pyic.payloads import MysqlPayloads
 
@@ -15,16 +17,25 @@ class DbDumper:
         self.payloads = payloads
         self.sf = string_finder
 
-    def dump(self, table):
+    def dump(self, table, columns=None):
         """
-        Dump a table
-        :param table: the table name, do not encode the value
+        Dump a table in a readable format
+        :param table: the table name, do not encode
+        :param columns: columns of the table. If None there are get via a query (be careful, value is enclosed by quotes)
         :return:
         """
-        columns = self.columns(table)
+        if columns is None:
+            columns = self.columns("'{}'".format(table))
+
+        x = PrettyTable()
         print('[+] columns of {} : {}'.format(table, columns))
         for column in columns:
-            print('[+] values for column {} : {}'.format(column, self.content(table, column)))
+            values = self.content(table, column)
+            print('[+] values for column {} : {}'.format(column, values))
+            x.add_column(column, values)
+
+        return x
+
 
     def tables(self):
         """

