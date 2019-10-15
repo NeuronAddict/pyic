@@ -8,4 +8,4 @@ setup(name='pyic',
       author_email='',
       license='GNUv3',
       packages=['pyic'],
-      zip_safe=False, install_requires=['requests', 'html2text', 'termcolor'])
+      zip_safe=False, install_requires=['requests', 'html2text', 'termcolor', 'prettytable'])
