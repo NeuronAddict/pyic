@@ -1,5 +1,32 @@
+import cmd
+
 from termcolor import colored
 from pyic.loggers import HttpLogger
+
+
+class PayloadCmd(cmd.Cmd):
+    intro = '\n[*] You are entering on payload mode, enter a payload to quick send it via your request builder.\n'
+    prompt = colored('payload : >>> ', 'red')
+
+    def __init__(self, request_builder, logger=HttpLogger(), extractor=None):
+        super().__init__()
+        self.request_builder = request_builder
+        self.logger = logger
+        self.extractor = extractor
+
+    def do_exit(self, line):
+        return True
+
+    def default(self, payload):
+        r = self.request_builder(payload)
+
+        if self.logger is not None:
+            self.logger(r)
+
+        if self.extractor is not None:
+            value = self.extractor(r)
+            if value is not None:
+                print(colored('[+] find value : {}'.format(value), 'green'))
 
 
 class ManualLoop:
@@ -9,24 +36,7 @@ class ManualLoop:
         self.logger = logger
 
     def start(self, extractor=None):
-        print('\n[*] You are entering on payload mode, enter a payload to quick send it via your request builder.\n')
-
-        while True:
-            payload = input(colored('payload : >>> ', 'red'))
-
-            if payload in ['exit', 'quit', 'bye', 'quit()']:
-                print('')
-                break
-
-            r = self.request_builder(payload)
-
-            if self.logger is not None:
-                self.logger(r)
-
-            if extractor is not None:
-                value = extractor(r)
-                if value is not None:
-                    print(colored('[+] find value : {}'.format(value), 'green'))
+        PayloadCmd(self.request_builder, self.logger, extractor).cmdloop()
 
 
 def loop(rb, logger=HttpLogger(), extractor=None):
