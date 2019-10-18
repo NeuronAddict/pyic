@@ -13,7 +13,7 @@ class BlindStringFinder(StringFinder):
     String finder based on the blind technique.
     """
 
-    def __init__(self, tester: BlindTester, payloads=MysqlPayloads()):
+    def __init__(self, tester: BlindTester, payloads=MysqlPayloads(), poolsize=40):
         """
         Create a BlindTester based on a BlindTester
         :param tester: BlindTester
@@ -22,6 +22,7 @@ class BlindStringFinder(StringFinder):
         self.pd = None
         self.tester = tester
         self.payloads = payloads
+        self.poolsize=poolsize
         self.stop = False
 
     def search_length(self, sql, a, b):
@@ -87,14 +88,16 @@ class BlindStringFinder(StringFinder):
 
             def f(i):
                 try:
-                    char = chr(self.search_char(sql, i, 10, 127))
+                    code = self.search_char(sql, i, 10, 127)
+                    char = chr(code)
+                    # print('[*] find char {} ({})'.format(char, code))
                     tpd.add(1)
                     return char
                 except Exception as e:
                     print('[-] error on get char {} (will be \'*\') {}'.format(i, e))
                     return '*'
 
-            with ThreadPool(40) as pool:
+            with ThreadPool(self.poolsize) as pool:
                 finded_str = ''.join(pool.map(f, range(1, length + 1)))
                 tpd.stop_update_display()
                 return finded_str
