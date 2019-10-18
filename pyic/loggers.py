@@ -24,3 +24,5 @@ class HttpLogger:
             print("{}\n".format(r.text))
         else:
             print("{}\n".format(self.extractor(r)))
+
+        print(colored("[*] Response time : {}s\n".format(r.elapsed.total_seconds()), 'magenta'))
