@@ -8,7 +8,7 @@ class PayloadCmd(cmd2.Cmd):
     prompt = colored('payload : >>> ', 'red')
 
     def __init__(self, request_builder, logger=HttpLogger(), extractor=None):
-        super().__init__(allow_cli_args=False)
+        super().__init__(allow_cli_args=False, allow_redirection=False)
         self.request_builder = request_builder
         self.logger = logger
         self.extractor = extractor
