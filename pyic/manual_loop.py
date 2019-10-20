@@ -7,7 +7,16 @@ class PayloadCmd(cmd2.Cmd):
     intro = '\n[*] You are entering on payload mode, enter a payload to quick send it via your request builder.\n'
     prompt = colored('payload : >>> ', 'red')
 
-    def __init__(self, request_builder, logger=HttpLogger(), extractor=None, delete_set=True, delete_quit=False):
+    def __init__(self, request_builder, logger=HttpLogger(), extractor=None, delete_set=True):
+        """
+        Create a CmdLine for payload mode
+        :param request_builder: Request builder to use. This rb will use the entered line as payload and forward
+                                response to the extractor and logger
+        :param logger: Logger to use. By default use the HttpLogger that print http response and response time
+        :param extractor: A callable that extract a value from the reponse (use StarExtract for get simple value)
+        :param delete_set: Do not execute the the set command (if you want type set in payload mode),
+                           see https://cmd2.readthedocs.io/en/latest/features/settings.html
+        """
         super().__init__(allow_cli_args=False, allow_redirection=False)
         self.request_builder = request_builder
         self.logger = logger
@@ -24,14 +33,13 @@ class PayloadCmd(cmd2.Cmd):
         del cmd2.Cmd.do_run_script
         del cmd2.Cmd.do__relative_run_script
         del cmd2.Cmd.do_shell
-
-        if delete_quit:
-            del cmd2.Cmd.do_quit
+        del cmd2.Cmd.do_quit
 
         if delete_set:
             del cmd2.Cmd.do_set
 
     def do_exit(self, line):
+        """Exit payload mode"""
         return True
 
     def default(self, line):
