@@ -1,15 +1,14 @@
-import cmd
-
+import cmd2
 from termcolor import colored
 from pyic.loggers import HttpLogger
 
 
-class PayloadCmd(cmd.Cmd):
+class PayloadCmd(cmd2.Cmd):
     intro = '\n[*] You are entering on payload mode, enter a payload to quick send it via your request builder.\n'
     prompt = colored('payload : >>> ', 'red')
 
     def __init__(self, request_builder, logger=HttpLogger(), extractor=None):
-        super().__init__()
+        super().__init__(allow_cli_args=False)
         self.request_builder = request_builder
         self.logger = logger
         self.extractor = extractor
