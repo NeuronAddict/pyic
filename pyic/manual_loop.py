@@ -16,7 +16,8 @@ class PayloadCmd(cmd2.Cmd):
     def do_exit(self, line):
         return True
 
-    def default(self, payload):
+    def default(self, line):
+        payload = line.raw
         r = self.request_builder(payload)
 
         if self.logger is not None:
