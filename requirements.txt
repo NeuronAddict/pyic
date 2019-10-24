@@ -3,3 +3,4 @@ html2text
 termcolor
 prettytable
 cmd2
+pyfiglet

@@ -14,11 +14,14 @@ from pyic.time_blind_tester import *
 # noinspection PyUnresolvedReferences
 import requests
 
-if __name__ == '__main__':
-    print("#" * 25 + "\n#\n# pyic lib loaded!\n#\n" + "#" * 25)
-    print('\nTo get help, type help(object) with object the following : '
-          'Tester, BlindStringFinder, UnionStringFinder, BlindTester, '
-          'SqliEncoder, DbDumper, HasText, Not, loop, StarExtract\n')
-    print('Type dir() to see all availables types and try help(<type>) to search other help\n')
-    print('You can also read the source code!\n')
-    print('https://github.com/NeuronAddict/pyic\n')
+from pyfiglet import Figlet
+custom_fig = Figlet(font='big', width=120)
+print(colored(custom_fig.renderText('python injection console'), 'green'))
+
+print(colored('More help and tutorial : https://github.com/NeuronAddict/pyic\n', 'green'))
+
+# print('\nTo get help, type help(object) with object the following : '
+#       'Tester, BlindStringFinder, UnionStringFinder, BlindTester, '
+#       'SqliEncoder, DbDumper, HasText, Not, loop, StarExtract\n')
+# print('Type dir() to see all availables types and try help(<type>) to search other help\n')
+# print('You can also read the source code!\n')
