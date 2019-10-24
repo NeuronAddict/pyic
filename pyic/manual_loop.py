@@ -49,7 +49,7 @@ omNMm                             ``````mMMMMMdddNMMMMMMNM/                     
                                 response to the extractor and logger
         :param logger: Logger to use. By default use the HttpLogger that print http response and response time
         :param extractor: A callable that extract a value from the reponse (use StarExtract for get simple value)
-        :param delete_set: Do not execute the the set command (if you want type set in payload mode),
+        :param delete_set: set ro False to not execute the the set command (if you want type set in payload mode),
                            see https://cmd2.readthedocs.io/en/latest/features/settings.html
         """
         super().__init__(allow_cli_args=False, allow_redirection=False)
