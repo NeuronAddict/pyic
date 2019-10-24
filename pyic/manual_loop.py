@@ -4,7 +4,42 @@ from pyic.loggers import HttpLogger
 
 
 class PayloadCmd(cmd2.Cmd):
-    intro = '\n[*] You are entering on payload mode, enter a payload to quick send it via your request builder.\n'
+    # Image par<a href="https://pixabay.com/fr/users/dimitrisvetsikas1969-1857980/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1693519">Dimitris Vetsikas</a> de <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=1693519">Pixabay</a>
+    banner = '''
+hhdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddmmmmmmmmmmmmmmmmmmmmmmmmmmm
++ohhddddddddddddddddddddddddddddddddmmmmmmmmmmdddddddddddddddmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
+ +o  `.-:+shddddddddddddddddddddddmmmmmmmmmmmmmmmmmmmmmmmmmmmmdhhhhhdmmmmmmmmmdymmmmmmmmmmmmmmmmmmmm
+ /M:        `--------::::://+ooooshdmmmmmmmmmmmmmmmmmmmmmddyo:`      .smmmmmdyymmmmmmmmmmmmmmmmmmmmm
+`.My                 ``````````    `.--..........--------.            `-oyhyhNNNNNNNmNNmmNNmmmmNNmmm
+/hNM`                              `                                  `` ``-omNNNNNNNNNNNNNNNNNNNNNN
+oMNM+  ````                              `-.+ssso+/:::/:                    `::sNNNNNNNNNNNNNNNNNNNN
+sNNMy   `````                    ``    `:mMNhdMMMMMMMMMMm/                      .:hNNNNNNNNNNNNNNNNN
+omNMm                             ``````mMMMMMdddNMMMMMMNM/                        :hNNNNNNNNNNNNNNN
+ dNMM.   ``                         ```-MhMMmmMMNd//+shmhMm                        `mNNNNNNNNNNNNNNN
+ hNMM:    ````                        `.NmN:``.oNM+`     +h-                     ``-NNNNNNNNNNNNNNNN
+ yNMMo     ````       ````              +dd/.``.dMd.``  `yN/                      `+NNNNNNNNNNNNNNNN
+ oMMMy`    `````       `````             .NMMNmNM:`yyo/+dMh.                      .dNNNNNNNNNNNNNNNN
+ +MNMh`     `````       ``````            -oh+mmM+/sMNdmMMd`                      `omNNNNNNNNNNNNNNN
+ :MNMd``   ``````         ```````           d./mMMMNNNNoo-                          `omNNNNNNNNNNNNN
+ -MNMm``     `````         `````````        hd/+ydNNmmh`h:                            `yNNNNNNNNNNNN
+ .MNMN``     ``````         `````+hs```     -dNhysyyys/dm`            `                `dNNNNNNNNNNN
+ `NNMM.`     ```````         `:ydNmdd+.`      .hMMNmddd+`          .oNm.                +NNMMMMNNNNN
+  mNMM.`    ````````          -osssdmmms:`      :oyys:``       `-+hNdNd`                 yNMMMMNNNyN
+  dNMM.``   ```````            ``...:ohmmmyo-`    ``````   `:+yhmhyo/s:                 ``yNMMMNNy+N
+  hmMM``    ````.``             ```.....:+yhdmhs/-```.://+yddyo:`                         `sNMMNm+NN
+  smMN`    `````.```              ``....````-/yhhhyhmNNNmho:`                               +yyyhdNN
+  omMm``    ````````         :+....:/+oossyhdNMMNdysddddy+:-.`     .:/.                      .hmmNNN
+  /mMd`     `````````        NmNdmmmdNNNNmdhso/-`````:ohmMMNmdhyyoddNd-                      -mNNNMN
+  -dMy`     `````````        ohMdddyo//-..````````````    .:+shhmNdNy                        `hNNMMM
+  .dMs       ````````        .mMy/    ```````````````           `sNm/                     `.:+sNMMMM
+  `yM/         ```````        .`         ```````````              .`                  `:+ymNNMMMMMMM
+   +o.              ```                     `````````                  `.-://+oosyhdmNNMMMMMMMMMMMMM
+   hmdhhhhhhhhyyyyyyyyssoo++++++++//+++++//:::----....``..-:/+ossyhdmNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMM
+   smNNNMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNMNMMNMMMMMMMMMMMMNMMMNNNNNNMMMMMMNNNMMMMMMMMMMMMMMMMMMMMMMMMMM
+        '''
+
+    intro = banner + colored('\n[*] You are entering on payload mode, enter a payload to quick send it via your request builder.\n', 'blue')
+
     prompt = colored('payload : >>> ', 'red')
 
     def __init__(self, request_builder, logger=HttpLogger(), extractor=None, delete_set=True):
