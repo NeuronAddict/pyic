@@ -16,9 +16,9 @@ import requests
 
 from pyfiglet import Figlet
 custom_fig = Figlet(font='big', width=120)
-print(colored(custom_fig.renderText('python injection console'), 'green'))
+print(colored(custom_fig.renderText('python injection console'), 'cyan'))
 
-print(colored('More help and tutorial : https://github.com/NeuronAddict/pyic\n', 'green'))
+print(colored('More help and tutorial : https://github.com/NeuronAddict/pyic\n', 'cyan'))
 
 # print('\nTo get help, type help(object) with object the following : '
 #       'Tester, BlindStringFinder, UnionStringFinder, BlindTester, '
