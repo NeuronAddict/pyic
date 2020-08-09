@@ -56,19 +56,20 @@ omNMm                             ``````mMMMMMdddNMMMMMMNM/                     
         self.request_builder = request_builder
         self.logger = logger
         self.extractor = extractor
-        del cmd2.Cmd.do_alias
-        del cmd2.Cmd.do_edit
-        del cmd2.Cmd.do_eof
-        del cmd2.Cmd.do_help
-        del cmd2.Cmd.do_macro
-        del cmd2.Cmd.do_py
-        del cmd2.Cmd.do_shortcuts
-        del cmd2.Cmd.do_history
-        del cmd2.Cmd.do_run_pyscript
-        del cmd2.Cmd.do_run_script
-        del cmd2.Cmd.do__relative_run_script
-        del cmd2.Cmd.do_shell
-        del cmd2.Cmd.do_quit
+        if cmd2.Cmd.do_alias:
+            del cmd2.Cmd.do_alias
+            del cmd2.Cmd.do_edit
+            del cmd2.Cmd.do_eof
+            del cmd2.Cmd.do_help
+            del cmd2.Cmd.do_macro
+            del cmd2.Cmd.do_py
+            del cmd2.Cmd.do_shortcuts
+            del cmd2.Cmd.do_history
+            del cmd2.Cmd.do_run_pyscript
+            del cmd2.Cmd.do_run_script
+            del cmd2.Cmd.do__relative_run_script
+            del cmd2.Cmd.do_shell
+            del cmd2.Cmd.do_quit
 
         if delete_set:
             del cmd2.Cmd.do_set
