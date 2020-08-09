@@ -8,7 +8,7 @@ class HttpLogger:
 
     def __call__(self, r):
 
-        print(colored("\n[*] > {} {}".format(r.request.method, r.url), 'cyan'))
+        print(colored("\n[*] > {} {}".format(r.request.method, r.request.url), 'cyan'))
         print(colored("[*] > {}".format(r.request.headers), 'cyan'))
 
         if hasattr(r.request, 'data'):
