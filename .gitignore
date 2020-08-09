@@ -19,3 +19,6 @@ sdist/
 .installed.cfg
 *.egg
 MANIFEST
+
+venv
+/pytestdebug.log
