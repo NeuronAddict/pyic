@@ -56,7 +56,7 @@ omNMm                             ``````mMMMMMdddNMMMMMMNM/                     
         self.request_builder = request_builder
         self.logger = logger
         self.extractor = extractor
-        if cmd2.Cmd.do_alias:
+        if hasattr(cmd2.Cmd, 'do_alias'):
             del cmd2.Cmd.do_alias
             del cmd2.Cmd.do_edit
             del cmd2.Cmd.do_eof
@@ -71,8 +71,8 @@ omNMm                             ``````mMMMMMdddNMMMMMMNM/                     
             del cmd2.Cmd.do_shell
             del cmd2.Cmd.do_quit
 
-        if delete_set:
-            del cmd2.Cmd.do_set
+            if delete_set:
+                del cmd2.Cmd.do_set
 
     def do_exit(self, line):
         """Exit payload mode"""
