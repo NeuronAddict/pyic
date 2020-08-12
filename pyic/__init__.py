@@ -16,7 +16,7 @@ from pyic.time_blind_tester import *
 # noinspection PyUnresolvedReferences
 import requests
 
-if os.environ['PYIC_BANNER'] == 'true':
+if os.environ.get('PYIC_BANNER') == 'true':
 
     from pyfiglet import Figlet
     custom_fig = Figlet(font='big', width=120)
