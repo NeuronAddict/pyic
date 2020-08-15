@@ -28,6 +28,8 @@ before_script:
 
 script:
     - until $(curl -qs localhost:8182 > /dev/null && curl -qs localhost:8181 > /dev/null); do sleep 3; done
+    - curl -I -v http://localhost:8181
+    - curl -I -v http://localhost:8182
     - pytest
 
 after_script:
