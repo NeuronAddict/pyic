@@ -5,6 +5,7 @@ python:
 
 
 cache:
+  pip: true
   directories:
   - docker_images
 
