@@ -27,7 +27,8 @@ before_script:
   - docker-compose -f docker/pgsql/docker-compose.yml up --build -d
 
 script:
-    - until $(curl -qs localhost:8182 > /dev/null && curl -qs localhost:8181 > /dev/null); do sleep 3; done && pytest
+    - until $(curl -qs localhost:8182 > /dev/null && curl -qs localhost:8181 > /dev/null); do sleep 3; done
+    - pytest
 
 after_script:
   - docker-compose -f docker/mysql/docker-compose.yml down
