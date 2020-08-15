@@ -1,9 +1,12 @@
 import logging
+
+import pytest
 import requests
 from unittest import TestCase
 from pyic import BlindStringFinder, SqliEncoder, TimeBlindTester
 
 
+@pytest.mark.skip(reason="calibrate is not stable on travis")
 class TestCalibrateTimeBasedBlindStringFinder(TestCase):
     """
     This test need the docker sqli in https://github.com/NeuronAddict/vulnerable-apps.git running
