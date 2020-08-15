@@ -56,12 +56,15 @@ omNMm                             ``````mMMMMMdddNMMMMMMNM/                     
         self.request_builder = request_builder
         self.logger = logger
         self.extractor = extractor
-        if hasattr(cmd2.Cmd, 'do_alias'):
-            del cmd2.Cmd.do_alias
+
+        for command in ['debug', 'echo', 'allow_style', 'editor', 'timing']:
+
+            self.remove_settable(command)
+
+        if hasattr(cmd2.Cmd, 'do_edit'):
             del cmd2.Cmd.do_edit
             del cmd2.Cmd.do_eof
             del cmd2.Cmd.do_help
-            del cmd2.Cmd.do_macro
             del cmd2.Cmd.do_py
             del cmd2.Cmd.do_shortcuts
             del cmd2.Cmd.do_history
@@ -71,8 +74,8 @@ omNMm                             ``````mMMMMMdddNMMMMMMNM/                     
             del cmd2.Cmd.do_shell
             del cmd2.Cmd.do_quit
 
-            if delete_set:
-                del cmd2.Cmd.do_set
+        if delete_set and hasattr(self, 'do_set'):
+            del cmd2.Cmd.do_set
 
     def do_exit(self, line):
         """Exit payload mode"""
