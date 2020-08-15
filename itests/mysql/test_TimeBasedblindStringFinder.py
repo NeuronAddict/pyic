@@ -14,9 +14,9 @@ class TestTimeBasedBlindStringFinder(TestCase):
     def setUp(self):
         self.tester = TimeBlindTester(
             lambda payload: requests.post('http://127.0.0.1:8181/login.php', data={'login': 'admin',
-                                                                                   'pass': "' OR ( ({}) AND sleep(1.5) ) #".format(
+                                                                                   'pass': "' OR ( ({}) AND sleep(3) ) #".format(
                                                                                        payload)}),
-            1.3, 1.5
+            1.9, 3
         )
 
         self.string_finder = BlindStringFinder(self.tester)
