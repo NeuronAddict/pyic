@@ -1,20 +1,36 @@
 language: python
+
 python:
   - '3.6'
+
+
+cache:
+  directories:
+  - docker_images
+
 before_install:
   - python --version
   - pip install -U pip
   - pip install -U pytest
   - pip install codecov
+  - docker load -i docker_images/images.tar || true
+
+before_cache:
+- docker save -o docker_images/images.tar $(docker images -a -q)
+
 install:
   - pip install -r requirements.txt .
+
 before_script:
   - docker-compose -f docker/mysql/docker-compose.yml up --build -d
   - docker-compose -f docker/pgsql/docker-compose.yml up --build -d
+
 script:
     - sleep 20 && pytest
+
 after_script:
   - docker-compose -f docker/mysql/docker-compose.yml down
   - docker-compose -f docker/pgsql/docker-compose.yml down
+
 after_success:
   - codecov # submit coverage
